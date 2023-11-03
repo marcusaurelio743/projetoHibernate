@@ -1,11 +1,14 @@
 package Model;
 
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Usuario {
@@ -18,6 +21,17 @@ public class Usuario {
 	private String login;
 	private String senha;
 	private Integer idade;
+	
+	@OneToMany(mappedBy = "usuario",fetch = FetchType.EAGER)
+	private List<Telefone> telefones;
+	
+	public void setTelefones(List<Telefone> telefones) {
+		this.telefones = telefones;
+	}
+	
+	public List<Telefone> getTelefones() {
+		return telefones;
+	}
 	
 	public void setIdade(Integer idade) {
 		this.idade = idade;

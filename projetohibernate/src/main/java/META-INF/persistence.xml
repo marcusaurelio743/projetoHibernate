@@ -5,6 +5,7 @@
 	<persistence-unit name="projetohibernate">
 		
 		<class>Model.Usuario</class>
+		<class>Model.Telefone</class>
 	
 	<properties>
 		
