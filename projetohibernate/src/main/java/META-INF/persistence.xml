@@ -3,11 +3,14 @@
 	
 	
 	<persistence-unit name="projetohibernate">
+		
+		<class>Model.Usuario</class>
 	
 	<properties>
+		
 	<!-- Dados de conexão com banco de Dados -->
-		<property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
-		<property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/projetohibernate"/>
+		<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
+		<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5433/projetohibernate"/>
 		<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
 		<property name="javax.persistence.jdbc.user" value="postgres" /> <!-- DB User -->
         <property name="javax.persistence.jdbc.password" value="admin" /> <!-- DB Password -->
