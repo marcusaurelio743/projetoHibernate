@@ -1,5 +1,6 @@
 package projetoHibernate;
 
+import java.util.List;
 import java.util.Scanner;
 
 import org.junit.Test;
@@ -15,7 +16,7 @@ public class testeHibernate {
 		
 		Usuario pessoa = new Usuario();
 		pessoa.setEmail("ddd@email.com");
-		pessoa.setNome("UsuarioTeste 2");
+		pessoa.setNome("fransisco");
 		pessoa.setIdade(20);
 		pessoa.setSobrenome("Usuario");
 		pessoa.setLogin("admin");
@@ -73,6 +74,47 @@ public class testeHibernate {
 		Usuario pessoa = daoGeneric.pesquisar(2L,Usuario.class);
 		
 		System.out.println(pessoa);
+		
+		
+	}
+	
+	@Test
+	public void testeAtualizar() {
+		DaoGeneric<Usuario> daoGeneric = new DaoGeneric<Usuario>();
+		
+		Usuario pessoa = daoGeneric.pesquisar(1L,Usuario.class);
+		pessoa.setNome("Nome Atualizado");
+		pessoa.setEmail("Email.com.Mudou");
+		pessoa.setIdade(99);
+		
+		pessoa = daoGeneric.Meger(pessoa);
+		
+		System.out.println(pessoa);
+		
+		
+	}
+	
+	@Test
+	public void testeDelete() {
+		DaoGeneric<Usuario> daoGeneric = new DaoGeneric<Usuario>();
+		
+		Usuario pessoa = daoGeneric.pesquisar(1L,Usuario.class);
+		
+		daoGeneric.deletarPorId(pessoa);
+		
+		
+	}
+	
+	@Test
+	public void testeConsultar() {
+		DaoGeneric<Usuario> daoGeneric = new DaoGeneric<Usuario>();
+		
+		List<Usuario> list = daoGeneric.listar(Usuario.class);
+		
+		for (Usuario usuario : list) {
+			System.out.println(usuario);
+			System.out.println("-------------------------------------");
+		}
 		
 		
 	}
