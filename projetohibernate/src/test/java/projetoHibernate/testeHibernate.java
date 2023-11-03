@@ -153,11 +153,11 @@ public class testeHibernate {
 	public void testeGravaFone() {
 		DaoGeneric daoGeneric = new DaoGeneric();
 		
-		Usuario pessoa = (Usuario) daoGeneric.pesquisar(3L, Usuario.class);
+		Usuario pessoa = (Usuario) daoGeneric.pesquisar(2L, Usuario.class);
 		
 		Telefone fone = new Telefone();
-		fone.setTipo("casa");
-		fone.setNumero("(55) 6565656565");
+		fone.setTipo("servico");
+		fone.setNumero("(55) 7676767676767");
 		fone.setUsuario(pessoa);
 		daoGeneric.Meger(fone);
 		
@@ -169,8 +169,8 @@ public class testeHibernate {
 	public void testeConsultaFone() {
 		DaoGeneric daoGeneric = new DaoGeneric();
 		
-		Usuario pessoa = (Usuario) daoGeneric.pesquisar(3L, Usuario.class);
-		
+		Usuario pessoa = (Usuario) daoGeneric.pesquisar(2L, Usuario.class);
+		System.out.println();
 		for (Telefone telefone : pessoa.getTelefones()) {
 			System.out.println(telefone.getId());
 			System.out.println(telefone.getTipo());
