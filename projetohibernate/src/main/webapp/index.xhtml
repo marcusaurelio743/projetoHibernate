@@ -109,6 +109,14 @@
 					<f:ajax execute="botaoremove" render="@form :formulario:msg"/>
 				</h:commandLink>
 			</h:column>
+			
+			<h:column>
+				<f:facet name="header">Telefones:</f:facet>
+				<h:commandLink  action="telefone.jsf" id="botaofone">
+					<h:graphicImage url="resources/img/telefone.jpg" width="27" height="27"/>
+					<f:param name="codigoUser" value="#{user.id}"/>
+				</h:commandLink>
+			</h:column>
 		</h:dataTable>
 		
 		
