@@ -1,37 +1,92 @@
 <!DOCTYPE html>
 <html
  	xmlns = "http://www.w3.org/1999/xhtml" 
-   xmlns:h = "http://java.sun.com/jsf/html">
+   xmlns:h = "http://java.sun.com/jsf/html"
+   xmlns:f="http://java.sun.com/jsf/core">
+   
 <h:head>
 	
 </h:head>
 
 <h:body>
 	<h:form>
+		<h:messages showDetail="true" showSummary="false"/>
 	    <h:panelGrid columns="2">
 			<h:outputLabel>ID</h:outputLabel>
 			<h:inputText readonly="true" value="#{usuarioManagedBean.usuario.id}" />
 			
 			<h:outputLabel>Nome</h:outputLabel>
-			<h:inputText  value="#{usuarioManagedBean.usuario.nome}" />
+			<h:inputText  value="#{usuarioManagedBean.usuario.nome}" required="true" requiredMessage="Informe  Nome:" />
 			
 			<h:outputLabel>Sobrenome</h:outputLabel>
-			<h:inputText  value="#{usuarioManagedBean.usuario.sobrenome}" />
+			<h:inputText  value="#{usuarioManagedBean.usuario.sobrenome}" required="true" requiredMessage="Informe Sobrenome:" />
 			
 			<h:outputLabel>Email</h:outputLabel>
-			<h:inputText  value="#{usuarioManagedBean.usuario.email}" />
+			<h:inputText  value="#{usuarioManagedBean.usuario.email}" required="true" requiredMessage="Informe Email:" />
 			
 			<h:outputLabel>Idade</h:outputLabel>
-			<h:inputText  value="#{usuarioManagedBean.usuario.idade}" />
+			<h:inputText  value="#{usuarioManagedBean.usuario.idade}" required="true" requiredMessage="Informe Idade:" />
 			
-			<h:outputLabel>Login</h:outputLabel>
-			<h:inputText  value="#{usuarioManagedBean.usuario.login}" />
+			<h:outputLabel>Login</h:outputLabel >
+			<h:inputText  value="#{usuarioManagedBean.usuario.login}" required="true" requiredMessage="Informe Login:" />
 			
 			<h:outputLabel>senha</h:outputLabel>
-			<h:inputSecret  value="#{usuarioManagedBean.usuario.senha}" />
+			<h:inputSecret  value="#{usuarioManagedBean.usuario.senha}" required="true" requiredMessage="Informe Senha:" />
 		</h:panelGrid>
+		<br/>
+		<br/>
 		<h:commandButton value="Salvar" action="#{usuarioManagedBean.salvar}"/>
 		<h:commandButton value="Novo" action="#{usuarioManagedBean.novo}"/>
+		</h:form>
+		<br/>
+		<br/>
+		<h:form>
+		<h:dataTable value="#{usuarioManagedBean.list}" var="user" cellpadding="15" border="1">
+			<f:facet name="header">Lista de Usúarios:</f:facet>
+			<h:column>
+				<f:facet name="header">ID:</f:facet>
+				<h:outputText value="#{user.id}"/>
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">Nome:</f:facet>
+				<h:outputText value="#{user.nome}"/>
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">Sobrenome:</f:facet>
+				<h:outputText value="#{user.sobrenome}"/>
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">Idade:</f:facet>
+				<h:outputText value="#{user.idade}"/>
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">Email:</f:facet>
+				<h:outputText value="#{user.email}"/>
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">Login:</f:facet>
+				<h:outputText value="#{user.login}"/>
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">Editar</f:facet>
+				<h:commandLink value="Editar">
+					<f:setPropertyActionListener value="#{user}" target="#{usuarioManagedBean.usuario}"/>
+				</h:commandLink>
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">Deletar</f:facet>
+				<h:commandLink value="deletar" action="#{usuarioManagedBean.deletar}">
+					<f:setPropertyActionListener value="#{user}" target="#{usuarioManagedBean.usuario}"/>
+				</h:commandLink>
+			</h:column>
+		</h:dataTable>
 		
 		
 	</h:form>
