@@ -3,6 +3,7 @@ package managedBean;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -19,6 +20,12 @@ public class UsuarioManagedBean {
 	
 	private DaoGeneric<Usuario> daoGeneric = new DaoGeneric<Usuario>();
 	private List<Usuario> list = new ArrayList<Usuario>();
+	
+	@PostConstruct
+	public void init() {
+		list = daoGeneric.listar(Usuario.class);
+		
+	}
 
 	public Usuario getUsuario() {
 		return usuario;
@@ -30,6 +37,7 @@ public class UsuarioManagedBean {
 	
 	public String salvar() {
 		 daoGeneric.salvar(usuario); 
+		 list.add(usuario);
 		 this.novo();
 		 FacesContext.getCurrentInstance().
 		 	addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Informação","Salvo com sucesso!!!"));
@@ -43,17 +51,35 @@ public class UsuarioManagedBean {
 		return "";
 	}
 	public List<Usuario> getList() {
-		list = daoGeneric.listar(Usuario.class);
+		
 		return list;
 	}
 	
 	public String deletar() {
 		
-		daoGeneric.deletarPorId(usuario);
+		try {
+			daoGeneric.deletarPorId(usuario);
+			list.remove(usuario);
+		} catch (Exception e) {
+			if(e.getCause() instanceof org.hibernate.exception.ConstraintViolationException) {
+				FacesContext.getCurrentInstance().
+				addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+						"Informação","Existem Telefones para o usuario!!!"));
+			 	
+				
+			}
+			e.printStackTrace();
+		}
 		this.novo();
+		
+		 FacesContext.getCurrentInstance().
+		 	addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Informação","Deletado com Sucesso!!!"));
+		 	
 		
 		return "";
 	}
+	
+	
 	
 	
 

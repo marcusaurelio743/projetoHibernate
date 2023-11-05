@@ -2,13 +2,23 @@
 <html
  	xmlns = "http://www.w3.org/1999/xhtml" 
    xmlns:h = "http://java.sun.com/jsf/html"
-   xmlns:f="http://java.sun.com/jsf/core">
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:p="http://primefaces.org/ui">
    
 <h:head>
 	
 </h:head>
 
 <h:body>
+	<h:form>
+		<p:breadCrumb>
+			<p:menuitem/>
+			<p:menuitem value="Pagina JSF" action="index.jsf"/>
+			<p:menuitem value="Pagina com PrimeFaces" action="primefaces.jsf"/>
+		</p:breadCrumb>
+		
+		
+	</h:form>
 	<h:form>
 		<h:messages showDetail="true" showSummary="false"/>
 	    <h:panelGrid columns="2">
@@ -27,6 +37,13 @@
 			<h:outputLabel>Idade</h:outputLabel>
 			<h:inputText  value="#{usuarioManagedBean.usuario.idade}" required="true" requiredMessage="Informe Idade:" />
 			
+			<h:outputLabel>Sexo:</h:outputLabel>
+			<h:selectOneMenu value="#{usuarioManagedBean.usuario.sexo}">
+				<f:selectItem itemValue="Masculino"/>
+				<f:selectItem itemValue="Feminino"/>
+			
+			</h:selectOneMenu>
+			
 			<h:outputLabel>Login</h:outputLabel >
 			<h:inputText  value="#{usuarioManagedBean.usuario.login}" required="true" requiredMessage="Informe Login:" />
 			
@@ -36,7 +53,9 @@
 		<br/>
 		<br/>
 		<h:commandButton value="Salvar" action="#{usuarioManagedBean.salvar}"/>
-		<h:commandButton value="Novo" action="#{usuarioManagedBean.novo}"/>
+		<h:commandButton value="Novo" action="#{usuarioManagedBean.novo}" id="botaoNovo" >
+			<f:ajax immediate="true" execute="botaoNovo" render="@form"/>
+		</h:commandButton>
 		</h:form>
 		<br/>
 		<br/>
@@ -75,14 +94,17 @@
 			
 			<h:column>
 				<f:facet name="header">Editar</f:facet>
-				<h:commandLink value="Editar">
+				<h:commandLink   id="botaoEditar">
+					<h:graphicImage url="resources/img/editar.jpg" width="27" height="27"/>
 					<f:setPropertyActionListener value="#{user}" target="#{usuarioManagedBean.usuario}"/>
+					
 				</h:commandLink>
 			</h:column>
 			
 			<h:column>
 				<f:facet name="header">Deletar</f:facet>
-				<h:commandLink value="deletar" action="#{usuarioManagedBean.deletar}">
+				<h:commandLink  action="#{usuarioManagedBean.deletar}">
+					<h:graphicImage url="resources/img/deletar.jpg" width="27" height="27"/>
 					<f:setPropertyActionListener value="#{user}" target="#{usuarioManagedBean.usuario}"/>
 				</h:commandLink>
 			</h:column>
