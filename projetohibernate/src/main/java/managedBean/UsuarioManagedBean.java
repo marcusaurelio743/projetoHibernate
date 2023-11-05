@@ -9,7 +9,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
-import Dao.DaoGeneric;
+import Dao.DaoUsuario;
 import Model.Usuario;
 
 @ManagedBean(name = "usuarioManagedBean")
@@ -18,12 +18,12 @@ public class UsuarioManagedBean {
 	
 	private Usuario usuario = new Usuario();
 	
-	private DaoGeneric<Usuario> daoGeneric = new DaoGeneric<Usuario>();
 	private List<Usuario> list = new ArrayList<Usuario>();
+	private DaoUsuario<Usuario> daoUsuario = new DaoUsuario();
 	
 	@PostConstruct
 	public void init() {
-		list = daoGeneric.listar(Usuario.class);
+		list = daoUsuario.listar(Usuario.class);
 		
 	}
 
@@ -36,7 +36,7 @@ public class UsuarioManagedBean {
 	}
 	
 	public String salvar() {
-		 daoGeneric.salvar(usuario); 
+		 daoUsuario.salvar(usuario); 
 		 list.add(usuario);
 		 this.novo();
 		 FacesContext.getCurrentInstance().
@@ -58,7 +58,7 @@ public class UsuarioManagedBean {
 	public String deletar() {
 		
 		try {
-			daoGeneric.deletarPorId(usuario);
+			daoUsuario.removerUsuario(usuario);
 			list.remove(usuario);
 		} catch (Exception e) {
 			if(e.getCause() instanceof org.hibernate.exception.ConstraintViolationException) {
