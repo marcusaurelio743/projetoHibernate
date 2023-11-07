@@ -21,46 +21,56 @@
 		
 	</h:form>
 	<h1>Página com primefaces</h1>
-	<h:form>
-		<h:messages showDetail="true" showSummary="false"/>
-	    <p:panelGrid columns="1">
+	<h:form >
+		<br/>
+		<p:messages showDetail="true" autoUpdate="true"/>
+		<br/>
+		
+	    <p:panelGrid columns="2">
 	    	
-	    	<p:column>
+	    	
 				<h:outputLabel>ID</h:outputLabel>
 				<p:inputText readonly="true" value="#{usuarioManagedBean.usuario.id}" />
-			</p:column>
 			
-			<p:column>
+			
+			
 				<h:outputLabel>Nome</h:outputLabel>
 				<p:inputText  value="#{usuarioManagedBean.usuario.nome}" required="true" requiredMessage="Informe  Nome:" />
-			</p:column>
 			
-			<p:column>
+			
+			
 				<h:outputLabel>Sobrenome</h:outputLabel>
 				<p:inputText  value="#{usuarioManagedBean.usuario.sobrenome}" required="true" requiredMessage="Informe Sobrenome:" />
-			</p:column>
 			
-			<p:column>
+			
+			
 				<h:outputLabel>Email</h:outputLabel>
 				<p:inputText  value="#{usuarioManagedBean.usuario.email}" required="true" requiredMessage="Informe Email:" />
-			</p:column>
 			
-			<p:column>
+			
+			
 				<h:outputLabel>Idade</h:outputLabel>
 				<p:inputText  value="#{usuarioManagedBean.usuario.idade}" required="true" requiredMessage="Informe Idade:" />
-			</p:column>
-			
-			<p:column>
-				<h:outputLabel>Login</h:outputLabel >
+
+				<p:outputLabel>Sexo:</p:outputLabel>
+				<p:selectOneMenu value="#{usuarioManagedBean.usuario.sexo}">
+					<f:selectItem itemValue="Masculino" itemLabel="Masculino"/>
+					<f:selectItem itemValue="Feminino" itemLabel="Feminino"/>
+	
+				</p:selectOneMenu>
+
+
+
+			<h:outputLabel>Login</h:outputLabel >
 				<p:inputText  value="#{usuarioManagedBean.usuario.login}" required="true" requiredMessage="Informe Login:" />
-			</p:column>
 			
-			<p:column>
+			
+			
 				<h:outputLabel>senha</h:outputLabel>
 				<p:password  value="#{usuarioManagedBean.usuario.senha}" required="true" requiredMessage="Informe Senha:" />
-			</p:column>
 			
-			<p:column >
+			
+			
 				<h:outputLabel>cep</h:outputLabel>
 				<p:inputText value="#{usuarioManagedBean.usuario.cep}" pt:placeholder="informe um cep Valido"
 				>
@@ -69,45 +79,40 @@
 					render=" logradouro complemento localidade bairro uf" />
 			</p:inputText>
 			
-			</p:column>
 			
-			<p:column>
+			
+			
 				<h:outputLabel>Logradouro</h:outputLabel>
 				<p:inputText value="#{usuarioManagedBean.usuario.logradouro}"
 					id="logradouro" />
 
-			</p:column>
 			
-			<p:column>
 			<h:outputLabel>complemento</h:outputLabel>
 			<p:inputText value="#{usuarioManagedBean.usuario.complemento}"
 				id="complemento" />
 			
-			</p:column>
 			
-			<p:column>
 				<h:outputLabel>Localidade</h:outputLabel>
 				<p:inputText value="#{usuarioManagedBean.usuario.localidade}"
 					id="localidade" />
-			</p:column>
 			
-			<p:column>
 				<h:outputLabel>bairro</h:outputLabel>
 				<p:inputText value="#{usuarioManagedBean.usuario.bairro}"
 					id="bairro" />
 
-			</p:column>
 			
-			<p:column>
 				<h:outputLabel>uf</h:outputLabel>
 				<p:inputText value="#{usuarioManagedBean.usuario.uf}" id="uf" />
-			</p:column>
+			
 			
 		</p:panelGrid>
 		<br/>
 		<br/>
 		<p:commandButton value="Salvar" ajax="false" action="#{usuarioManagedBean.salvar}"/>
-		<p:commandButton value="Novo" ajax="false" action="#{usuarioManagedBean.novo}"/>
+		
+		<p:commandButton value="Novo" immediate="true"  action="#{usuarioManagedBean.novo}">
+			<f:ajax execute="@this" render="@form"/>
+		</p:commandButton>
 		</h:form>
 		<br/>
 		<br/>
@@ -142,6 +147,14 @@
 			<p:column headerText="Login">
 				
 				<h:outputText value="#{user.login}"/>
+			</p:column>
+			
+			<p:column>
+				<f:facet name="header">Telefones:</f:facet>
+				<h:commandLink  action="telefoneprimeFaces.jsf" id="botaofone">
+					<h:graphicImage url="resources/img/telefone.jpg" width="27" height="27"/>
+					<f:param name="codigoUser" value="#{user.id}"/>
+				</h:commandLink>
 			</p:column>
 			
 			<p:column headerText="Editar">
