@@ -3,7 +3,8 @@
  	xmlns = "http://www.w3.org/1999/xhtml" 
    xmlns:h = "http://java.sun.com/jsf/html"
    xmlns:f="http://java.sun.com/jsf/core"
-   xmlns:p="http://primefaces.org/ui">
+   xmlns:p="http://primefaces.org/ui"
+    xmlns:pt = "http://xmlns.jcp.org/jsf/passthrough">
    
 <h:head>
 	
@@ -22,27 +23,86 @@
 	<h1>Página com primefaces</h1>
 	<h:form>
 		<h:messages showDetail="true" showSummary="false"/>
-	    <p:panelGrid columns="2">
-			<h:outputLabel>ID</h:outputLabel>
-			<p:inputText readonly="true" value="#{usuarioManagedBean.usuario.id}" />
+	    <p:panelGrid columns="1">
+	    	
+	    	<p:column>
+				<h:outputLabel>ID</h:outputLabel>
+				<p:inputText readonly="true" value="#{usuarioManagedBean.usuario.id}" />
+			</p:column>
 			
-			<h:outputLabel>Nome</h:outputLabel>
-			<p:inputText  value="#{usuarioManagedBean.usuario.nome}" required="true" requiredMessage="Informe  Nome:" />
+			<p:column>
+				<h:outputLabel>Nome</h:outputLabel>
+				<p:inputText  value="#{usuarioManagedBean.usuario.nome}" required="true" requiredMessage="Informe  Nome:" />
+			</p:column>
 			
-			<h:outputLabel>Sobrenome</h:outputLabel>
-			<p:inputText  value="#{usuarioManagedBean.usuario.sobrenome}" required="true" requiredMessage="Informe Sobrenome:" />
+			<p:column>
+				<h:outputLabel>Sobrenome</h:outputLabel>
+				<p:inputText  value="#{usuarioManagedBean.usuario.sobrenome}" required="true" requiredMessage="Informe Sobrenome:" />
+			</p:column>
 			
-			<h:outputLabel>Email</h:outputLabel>
-			<p:inputText  value="#{usuarioManagedBean.usuario.email}" required="true" requiredMessage="Informe Email:" />
+			<p:column>
+				<h:outputLabel>Email</h:outputLabel>
+				<p:inputText  value="#{usuarioManagedBean.usuario.email}" required="true" requiredMessage="Informe Email:" />
+			</p:column>
 			
-			<h:outputLabel>Idade</h:outputLabel>
-			<p:inputText  value="#{usuarioManagedBean.usuario.idade}" required="true" requiredMessage="Informe Idade:" />
+			<p:column>
+				<h:outputLabel>Idade</h:outputLabel>
+				<p:inputText  value="#{usuarioManagedBean.usuario.idade}" required="true" requiredMessage="Informe Idade:" />
+			</p:column>
 			
-			<h:outputLabel>Login</h:outputLabel >
-			<p:inputText  value="#{usuarioManagedBean.usuario.login}" required="true" requiredMessage="Informe Login:" />
+			<p:column>
+				<h:outputLabel>Login</h:outputLabel >
+				<p:inputText  value="#{usuarioManagedBean.usuario.login}" required="true" requiredMessage="Informe Login:" />
+			</p:column>
 			
-			<h:outputLabel>senha</h:outputLabel>
-			<p:password  value="#{usuarioManagedBean.usuario.senha}" required="true" requiredMessage="Informe Senha:" />
+			<p:column>
+				<h:outputLabel>senha</h:outputLabel>
+				<p:password  value="#{usuarioManagedBean.usuario.senha}" required="true" requiredMessage="Informe Senha:" />
+			</p:column>
+			
+			<p:column >
+				<h:outputLabel>cep</h:outputLabel>
+				<p:inputText value="#{usuarioManagedBean.usuario.cep}" pt:placeholder="informe um cep Valido"
+				>
+				<f:ajax event="blur" execute="@this"
+					listener="#{usuarioManagedBean.pesquisaCep}"
+					render=" logradouro complemento localidade bairro uf" />
+			</p:inputText>
+			
+			</p:column>
+			
+			<p:column>
+				<h:outputLabel>Logradouro</h:outputLabel>
+				<p:inputText value="#{usuarioManagedBean.usuario.logradouro}"
+					id="logradouro" />
+
+			</p:column>
+			
+			<p:column>
+			<h:outputLabel>complemento</h:outputLabel>
+			<p:inputText value="#{usuarioManagedBean.usuario.complemento}"
+				id="complemento" />
+			
+			</p:column>
+			
+			<p:column>
+				<h:outputLabel>Localidade</h:outputLabel>
+				<p:inputText value="#{usuarioManagedBean.usuario.localidade}"
+					id="localidade" />
+			</p:column>
+			
+			<p:column>
+				<h:outputLabel>bairro</h:outputLabel>
+				<p:inputText value="#{usuarioManagedBean.usuario.bairro}"
+					id="bairro" />
+
+			</p:column>
+			
+			<p:column>
+				<h:outputLabel>uf</h:outputLabel>
+				<p:inputText value="#{usuarioManagedBean.usuario.uf}" id="uf" />
+			</p:column>
+			
 		</p:panelGrid>
 		<br/>
 		<br/>
