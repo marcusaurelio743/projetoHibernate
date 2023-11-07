@@ -33,10 +33,39 @@
 		</h:panelGrid>
 		<br/>
 		<br/>
-		<h:commandButton value="Salvar" action="#{telefoneManagedBean.salvar}"></h:commandButton>
+		<h:commandButton value="Salvar" action="#{telefoneManagedBean.salvar}"></h:commandButton>	  
 		
-	    
+	</h:form>
+	
+	<h:form id="formTelefone">
+		<h:dataTable value="#{telefoneManagedBean.user.telefones}" var="telefone" cellpadding="15" border="1">
 		
+			<h:column>
+				<f:facet name="header">id:</f:facet>
+				<h:outputText value="#{telefone.id}"/>
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">Tipo:</f:facet>
+				<h:outputText value="#{telefone.tipo}"/>
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">número:</f:facet>
+				<h:outputText value="#{telefone.numero}"/>
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">Deletar</f:facet>
+				<h:commandLink  action="#{telefoneManagedBean.removetelefone}" id="botaoremove">
+					<h:graphicImage url="resources/img/deletar.jpg" width="27" height="27"/>
+					<f:setPropertyActionListener value="#{telefone}" target="#{telefoneManagedBean.telefone}"/>
+					<f:ajax execute="botaoremove" render="@form :formulario:msg"/>
+				</h:commandLink>
+			</h:column>
+		
+		</h:dataTable>
+	
 	</h:form>
 </h:body>
 </html>

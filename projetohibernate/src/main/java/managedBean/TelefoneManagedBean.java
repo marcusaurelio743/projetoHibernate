@@ -55,12 +55,22 @@ public class TelefoneManagedBean {
 		return telefone;
 	}
 	
+	public String removetelefone() throws Exception  {
+		daoTelefone.deletarPorId(telefone);
+		user = daouser.pesquisar(user.getId(), Usuario.class);
+		telefone = new Telefone();
+		FacesContext.getCurrentInstance().
+	 	addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Informação","Telefone Removido!!!"));
+
+		return "";
+	}
+	
 	public String salvar() {
 		telefone.setUsuario(user);
 		daoTelefone.salvar(telefone);
 		
 		telefone = new Telefone();
-		
+		user = daouser.pesquisar(user.getId(), Usuario.class);
 		 FacesContext.getCurrentInstance().
 		 	addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Informação","Salvo com sucesso!!!"));
 	return "";	 
