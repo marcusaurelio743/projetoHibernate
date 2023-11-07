@@ -1,5 +1,10 @@
 package managedBean;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +12,10 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.event.AjaxBehaviorEvent;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import javax.faces.context.FacesContext;
 
 import Dao.DaoUsuario;
@@ -49,6 +58,45 @@ public class UsuarioManagedBean {
 		usuario = new Usuario();
 		
 		return "";
+	}
+	
+	public String pesquisaCep(AjaxBehaviorEvent event) {
+		
+		try {
+			//System.out.println("cep digitado: "+usuario.getCep());
+			
+			URL url = new URL("https://viacep.com.br/ws/"+usuario.getCep()+"/json/");
+			
+			URLConnection connection = url.openConnection();
+			
+			InputStream is = connection.getInputStream();
+			
+			BufferedReader br = new BufferedReader(new InputStreamReader(is,"utf-8"));
+			
+			String cep = " ";
+			
+			StringBuilder jsoncep = new StringBuilder();
+			
+			while((cep = br.readLine()) != null) {
+				jsoncep.append(cep);
+			}
+			
+			ObjectMapper objectMapper = new ObjectMapper();
+			 
+			Usuario useAux = objectMapper.readValue(jsoncep.toString(),Usuario.class);
+			usuario.setCep(useAux.getCep());
+			usuario.setBairro(useAux.getBairro());
+			usuario.setComplemento(useAux.getComplemento());
+			usuario.setLogradouro(useAux.getLogradouro());
+			usuario.setLocalidade(useAux.getLocalidade());
+			usuario.setUf(useAux.getUf());
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "";
+		
 	}
 	public List<Usuario> getList() {
 		
