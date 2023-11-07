@@ -106,8 +106,8 @@
 		</p:panelGrid>
 		<br/>
 		<br/>
-		<p:commandButton value="Salvar" action="#{usuarioManagedBean.salvar}"/>
-		<p:commandButton value="Novo" action="#{usuarioManagedBean.novo}"/>
+		<p:commandButton value="Salvar" ajax="false" action="#{usuarioManagedBean.salvar}"/>
+		<p:commandButton value="Novo" ajax="false" action="#{usuarioManagedBean.novo}"/>
 		</h:form>
 		<br/>
 		<br/>
@@ -146,14 +146,16 @@
 			
 			<p:column headerText="Editar">
 				
-				<h:commandLink value="Editar">
+				<h:commandLink >
+					<h:graphicImage url="resources/img/editar.jpg" width="27" height="27"/>
 					<f:setPropertyActionListener value="#{user}" target="#{usuarioManagedBean.usuario}"/>
 				</h:commandLink>
 			</p:column>
 			
 			<p:column headerText="Deletar">
 				
-				<h:commandLink value="deletar" action="#{usuarioManagedBean.deletar}">
+				<h:commandLink  action="#{usuarioManagedBean.deletar}">
+					<h:graphicImage url="resources/img/deletar.jpg" width="27" height="27"/>
 					<f:setPropertyActionListener value="#{user}" target="#{usuarioManagedBean.usuario}"/>
 				</h:commandLink>
 			</p:column>
