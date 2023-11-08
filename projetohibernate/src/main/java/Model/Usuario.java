@@ -41,6 +41,7 @@ public class Usuario {
 	private String localidade;
 	@Column(length = 4)
 	private String uf;
+	private Double salario;
 
 	@OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
 	private List<Telefone> telefones;
@@ -52,7 +53,12 @@ public class Usuario {
 	public List<Telefone> getTelefones() {
 		return telefones;
 	}
-
+	public void setSalario(Double salario) {
+		this.salario = salario;
+	}
+	public Double getSalario() {
+		return salario;
+	}
 	public void setIdade(Integer idade) {
 		this.idade = idade;
 	}

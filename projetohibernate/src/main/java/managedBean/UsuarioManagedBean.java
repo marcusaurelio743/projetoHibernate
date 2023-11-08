@@ -14,6 +14,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.AjaxBehaviorEvent;
 
+import org.primefaces.model.chart.BarChartModel;
+import org.primefaces.model.chart.ChartSeries;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.faces.context.FacesContext;
@@ -29,11 +32,26 @@ public class UsuarioManagedBean {
 	
 	private List<Usuario> list = new ArrayList<Usuario>();
 	private DaoUsuario<Usuario> daoUsuario = new DaoUsuario();
+	private BarChartModel barChartModel = new BarChartModel();
 	
 	@PostConstruct
 	public void init() {
 		list = daoUsuario.listar(Usuario.class);
 		
+		ChartSeries userSalario = new ChartSeries();//grupo de usuarios
+		
+		for (Usuario usuario : list) {
+			
+			
+				userSalario.set(usuario.getNome(), usuario.getSalario());//vai verificar cada usuario e setar o nome e salario
+			
+		}
+		barChartModel.addSeries(userSalario);//adiciona o grupo no barmodel
+		barChartModel.setTitle("Gráfico de Salário");
+		
+	}
+	public BarChartModel getBarChartModel() {
+		return barChartModel;
 	}
 
 	public Usuario getUsuario() {

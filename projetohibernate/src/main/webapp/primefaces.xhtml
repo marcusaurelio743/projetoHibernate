@@ -51,6 +51,9 @@
 			
 				<h:outputLabel>Idade</h:outputLabel>
 				<p:inputText  value="#{usuarioManagedBean.usuario.idade}" required="true" requiredMessage="Informe Idade:" />
+				
+				<h:outputLabel>Salario</h:outputLabel>
+				<p:inputText  value="#{usuarioManagedBean.usuario.salario}" required="true" requiredMessage="Informe Salario:" />
 
 				<p:outputLabel>Sexo:</p:outputLabel>
 				<p:selectOneMenu value="#{usuarioManagedBean.usuario.sexo}">
@@ -173,6 +176,8 @@
 				</h:commandLink>
 			</p:column>
 		</p:dataTable>
+		<br/>
+		<p:chart type="bar" model="#{usuarioManagedBean.barChartModel}"/>
 		
 		
 	</h:form>
