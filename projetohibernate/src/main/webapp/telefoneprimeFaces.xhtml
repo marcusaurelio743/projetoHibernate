@@ -21,51 +21,56 @@
 	</h:form>
 	<h1>Telefone prime Faces</h1>
 	<h:form id="formulario">
-		<h:messages showDetail="true" showSummary="false" id="msg"/>
+		
+		<br/>
+		<p:messages showDetail="true" autoUpdate="true"/>
+		<br/>
 		<h:panelGrid columns="2">
-			<h:outputLabel>Usuário: </h:outputLabel>
-			<h:outputText value="#{telefoneManagedBean.user.nome}"/>
+			<p:outputLabel>Usuário: </p:outputLabel>
+			<p:outputLabel value="#{telefoneManagedBean.user.nome}" />
 			
-			<h:outputLabel>Tipo:</h:outputLabel>
-			<h:inputText value="#{telefoneManagedBean.telefone.tipo}"/>
+			<p:outputLabel>Tipo:</p:outputLabel>
+			<p:inputText value="#{telefoneManagedBean.telefone.tipo}" required="true" requiredMessage="Tipo é Obrigatório"/>
 			
-			<h:outputLabel>número:</h:outputLabel>
-			<h:inputText value="#{telefoneManagedBean.telefone.numero}"/>
+			<p:outputLabel>número:</p:outputLabel>
+			<p:inputText value="#{telefoneManagedBean.telefone.numero}"  required="true" requiredMessage="Número é Obrigatório"/>
 		</h:panelGrid>
 		<br/>
 		<br/>
-		<h:commandButton value="Salvar" action="#{telefoneManagedBean.salvar}"></h:commandButton>	  
+		<p:commandButton value="Salvar" action="#{telefoneManagedBean.salvar}" ajax="false"></p:commandButton>	  
 		
 	</h:form>
+	<br/>
+	<br/>
 	
 	<h:form id="formTelefone">
-		<h:dataTable value="#{telefoneManagedBean.user.telefones}" var="telefone" cellpadding="15" border="1">
+		<p:dataTable value="#{telefoneManagedBean.user.telefones}" var="telefone" >
 		
-			<h:column>
+			<p:column>
 				<f:facet name="header">id:</f:facet>
 				<h:outputText value="#{telefone.id}"/>
-			</h:column>
+			</p:column>
 			
-			<h:column>
+			<p:column>
 				<f:facet name="header">Tipo:</f:facet>
 				<h:outputText value="#{telefone.tipo}"/>
-			</h:column>
+			</p:column>
 			
-			<h:column>
+			<p:column>
 				<f:facet name="header">número:</f:facet>
 				<h:outputText value="#{telefone.numero}"/>
-			</h:column>
+			</p:column>
 			
-			<h:column>
+			<p:column>
 				<f:facet name="header">Deletar</f:facet>
 				<h:commandLink  action="#{telefoneManagedBean.removetelefone}" id="botaoremove">
 					<h:graphicImage url="resources/img/deletar.jpg" width="27" height="27"/>
 					<f:setPropertyActionListener value="#{telefone}" target="#{telefoneManagedBean.telefone}"/>
 					<f:ajax execute="botaoremove" render="@form :formulario:msg"/>
 				</h:commandLink>
-			</h:column>
+			</p:column>
 		
-		</h:dataTable>
+		</p:dataTable>
 	
 	</h:form>
 </h:body>
