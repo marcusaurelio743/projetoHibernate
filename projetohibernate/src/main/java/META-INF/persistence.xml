@@ -6,6 +6,7 @@
 		
 		<class>Model.Usuario</class>
 		<class>Model.Telefone</class>
+		<class>Model.Email</class>
 	
 	<properties>
 		

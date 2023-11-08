@@ -1,8 +1,10 @@
 package Model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -23,7 +25,7 @@ public class Usuario {
 	private Long id;
 	private String nome;
 	private String sobrenome;
-	private String email;
+	
 	private String login;
 	private String senha;
 	private Integer idade;
@@ -45,6 +47,16 @@ public class Usuario {
 
 	@OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
 	private List<Telefone> telefones;
+	
+	@OneToMany(mappedBy = "usuario",fetch = FetchType.LAZY,cascade = CascadeType.REMOVE,orphanRemoval = true)
+	private List<Email> emails = new ArrayList<Email>();
+	
+	public void setEmails(List<Email> emails) {
+		this.emails = emails;
+	}
+	public List<Email> getEmails() {
+		return emails;
+	}
 
 	public void setTelefones(List<Telefone> telefones) {
 		this.telefones = telefones;
@@ -99,14 +111,9 @@ public class Usuario {
 		this.sobrenome = sobrenome;
 	}
 
-	public String getEmail() {
-		return email;
-	}
+	
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
+	
 	public String getLogin() {
 		return login;
 	}
@@ -190,10 +197,12 @@ public class Usuario {
 
 	@Override
 	public String toString() {
-		return "Usuario [id=" + id + ", nome=" + nome + ", sobrenome=" + sobrenome + ", email=" + email + ", login="
-				+ login + ", senha=" + senha + ", idade=" + idade + ", sexo=" + sexo + ", cep=" + cep + ", logradouro="
-				+ logradouro + ", complemento=" + complemento + ", bairro=" + bairro + ", localidade=" + localidade
-				+ ", uf=" + uf + ", telefones=" + telefones + "]";
+		return "Usuario [id=" + id + ", nome=" + nome + ", sobrenome=" + sobrenome + ", login=" + login + ", senha="
+				+ senha + ", idade=" + idade + ", sexo=" + sexo + ", cep=" + cep + ", logradouro=" + logradouro
+				+ ", complemento=" + complemento + ", bairro=" + bairro + ", localidade=" + localidade + ", uf=" + uf
+				+ ", salario=" + salario + ", telefones=" + telefones + "]";
 	}
+
+	
 
 }

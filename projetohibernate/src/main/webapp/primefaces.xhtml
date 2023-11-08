@@ -44,8 +44,7 @@
 			
 			
 			
-				<h:outputLabel>Email</h:outputLabel>
-				<p:inputText  value="#{usuarioManagedBean.usuario.email}" required="true" requiredMessage="Informe Email:" />
+				
 			
 			
 			
@@ -119,7 +118,7 @@
 		</h:form>
 		<br/>
 		<br/>
-		<h:form>
+		<h:form id="formtable">
 		<p:dataTable value="#{usuarioManagedBean.list}" var="user" cellpadding="15" border="1">
 			<f:facet name="header">Lista de Usúarios:</f:facet>
 			<p:column headerText="ID:">
@@ -142,10 +141,7 @@
 				<h:outputText value="#{user.idade}"/>
 			</p:column>
 			
-			<p:column headerText="Email:">
-				
-				<h:outputText value="#{user.email}"/>
-			</p:column>
+			
 			
 			<p:column headerText="Login">
 				
@@ -160,6 +156,7 @@
 				</h:commandLink>
 			</p:column>
 			
+						
 			<p:column headerText="Editar">
 				
 				<h:commandLink >
@@ -175,7 +172,18 @@
 					<f:setPropertyActionListener value="#{user}" target="#{usuarioManagedBean.usuario}"/>
 				</h:commandLink>
 			</p:column>
+			
+			<p:column headerText="E-mail">
+				<p:commandLink update=":formtable:dialogemail" oncomplete="PF('dialogemail').show()">
+				<f:setPropertyActionListener value="#{user}" target="#{usuarioManagedBean.usuario}"></f:setPropertyActionListener> 
+				<h:graphicImage url="resources/img/email.png" width="27" height="27"/>
+					
+				</p:commandLink>
+			</p:column>
 		</p:dataTable>
+		<p:dialog header="E-mails" id="dialogemail" widgetVar="dialogemail" position="center" modal="true" width="490px">
+		</p:dialog>
+		
 		<br/>
 		<p:chart type="bar" model="#{usuarioManagedBean.barChartModel}"/>
 		

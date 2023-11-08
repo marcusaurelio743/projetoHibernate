@@ -16,7 +16,7 @@ public class testeHibernate {
 		DaoGeneric<Usuario> daoGeneric = new DaoGeneric<Usuario>();
 		
 		Usuario pessoa = new Usuario();
-		pessoa.setEmail("ddd@email.com");
+		//pessoa.setEmail("ddd@email.com");
 		pessoa.setNome("fransisco");
 		pessoa.setIdade(20);
 		pessoa.setSobrenome("Usuario");
@@ -37,7 +37,7 @@ public class testeHibernate {
 		System.out.println("insere o sobrenome");
 		p.setSobrenome(sc.nextLine());
 		System.out.println("insere o   Email");
-		p.setEmail(sc.nextLine());
+		//p.setEmail(sc.nextLine());
 		System.out.println("insere idade");
 		p.setIdade(sc.nextInt());
 		sc.nextLine();
@@ -85,7 +85,7 @@ public class testeHibernate {
 		
 		Usuario pessoa = daoGeneric.pesquisar(1L,Usuario.class);
 		pessoa.setNome("Nome Atualizado");
-		pessoa.setEmail("Email.com.Mudou");
+		//pessoa.setEmail("Email.com.Mudou");
 		pessoa.setIdade(99);
 		
 		pessoa = daoGeneric.Meger(pessoa);
