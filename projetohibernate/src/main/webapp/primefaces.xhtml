@@ -23,7 +23,7 @@
 	<h1>Página com primefaces</h1>
 	<h:form >
 		<br/>
-		<p:messages showDetail="true" autoUpdate="true"/>
+		<p:growl showDetail="true" autoUpdate="true"/>
 		<br/>
 		
 	    <p:panelGrid columns="2">
@@ -181,7 +181,35 @@
 				</p:commandLink>
 			</p:column>
 		</p:dataTable>
-		<p:dialog header="E-mails" id="dialogemail" widgetVar="dialogemail" position="center" modal="true" width="490px">
+		<p:dialog header="E-mails" id="dialogemail" widgetVar="dialogemail" position="center" modal="true" width="490px" resizable="false">
+		
+			<p:panelGrid columns="3">
+				<h:outputLabel>E-mail:</h:outputLabel>
+				<p:inputText value="#{usuarioManagedBean.email.email}" id="emailUserAdd"/>
+				<p:commandButton value="Salvar" actionListener="#{usuarioManagedBean.addEmail}" update="emailUserAdd,dataTableEmail"></p:commandButton>
+				
+			
+			</p:panelGrid>
+			
+			<p:dataTable value="#{usuarioManagedBean.usuario.emails}" var="email" id="dataTableEmail">
+					<p:column headerText="ID">
+						<h:outputLabel value="#{email.id}"/>
+					</p:column>
+					<p:column headerText="email">
+						<h:outputLabel value="#{email.email}"/>
+					</p:column>
+					
+					<p:column headerText="Deletar">
+						<h:commandLink id="botaoRemover" actionListener="#{usuarioManagedBean.removerEmail}" >
+							<f:param name="codigoEmail" value="#{email.id}"/>
+							<f:ajax execute="botaoRemover" render="dataTableEmail"/>
+							<h:graphicImage url="resources/img/deletar.jpg" width="27" height="27"/>
+							
+						</h:commandLink>
+					</p:column>
+				
+				</p:dataTable>
+		
 		</p:dialog>
 		
 		<br/>

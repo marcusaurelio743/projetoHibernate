@@ -21,7 +21,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.faces.context.FacesContext;
 
+import Dao.DaoEmail;
 import Dao.DaoUsuario;
+import Model.Email;
 import Model.Usuario;
 
 @ManagedBean(name = "usuarioManagedBean")
@@ -32,7 +34,9 @@ public class UsuarioManagedBean {
 	
 	private List<Usuario> list = new ArrayList<Usuario>();
 	private DaoUsuario<Usuario> daoUsuario = new DaoUsuario();
+	private DaoEmail<Email> daoEmail = new DaoEmail<Email>();
 	private BarChartModel barChartModel = new BarChartModel();
+	private Email email = new Email();
 	
 	@PostConstruct
 	public void init() {
@@ -49,6 +53,12 @@ public class UsuarioManagedBean {
 		barChartModel.addSeries(userSalario);//adiciona o grupo no barmodel
 		barChartModel.setTitle("Gráfico de Salário");
 		
+	}
+	public void setEmail(Email email) {
+		this.email = email;
+	}
+	public Email getEmail() {
+		return email;
 	}
 	public BarChartModel getBarChartModel() {
 		return barChartModel;
@@ -72,11 +82,35 @@ public class UsuarioManagedBean {
 	return "";
 	}
 	
+	public void addEmail() {
+		email.setUsuario(usuario);
+		email = daoEmail.Meger(email);
+		usuario.getEmails().add(email);
+		email = new Email();
+		
+		FacesContext.getCurrentInstance().
+	 	addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Informação","E-mail Salvo !!"));
+	}
+	
+	public void removerEmail() throws Exception {
+		String codigoemail = FacesContext.getCurrentInstance()
+				.getExternalContext().getRequestParameterMap().get("codigoEmail");
+		Email remover = new Email();
+		remover.setId(Long.parseLong(codigoemail));
+		daoEmail.deletarPorId(remover);
+		usuario.getEmails().remove(remover);
+		
+		FacesContext.getCurrentInstance().
+	 	addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Informação","E-mail Excluido !!"));
+	
+		
+	}
+	
 	public String novo() {
 		usuario = new Usuario();
 		
 		return "";
-	}
+	} 
 	
 	public String pesquisaCep(AjaxBehaviorEvent event) {
 		

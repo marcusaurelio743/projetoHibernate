@@ -45,7 +45,7 @@ public class Usuario {
 	private String uf;
 	private Double salario;
 
-	@OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER,cascade = CascadeType.REMOVE,orphanRemoval = true)
 	private List<Telefone> telefones;
 	
 	@OneToMany(mappedBy = "usuario",fetch = FetchType.LAZY,cascade = CascadeType.REMOVE,orphanRemoval = true)
