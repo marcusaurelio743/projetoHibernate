@@ -42,6 +42,8 @@ public class UsuarioManagedBean {
 	public void init() {
 		list = daoUsuario.listar(Usuario.class);
 		
+		barChartModel = new BarChartModel();
+		
 		ChartSeries userSalario = new ChartSeries();//grupo de usuarios
 		
 		for (Usuario usuario : list) {
@@ -76,6 +78,7 @@ public class UsuarioManagedBean {
 		 daoUsuario.salvar(usuario); 
 		 list.add(usuario);
 		 this.novo();
+		 init();
 		 FacesContext.getCurrentInstance().
 		 	addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Informação","Salvo com sucesso!!!"));
 		 	
@@ -160,6 +163,7 @@ public class UsuarioManagedBean {
 		try {
 			daoUsuario.removerUsuario(usuario);
 			list.remove(usuario);
+			init();
 		} catch (Exception e) {
 			if(e.getCause() instanceof org.hibernate.exception.ConstraintViolationException) {
 				FacesContext.getCurrentInstance().
