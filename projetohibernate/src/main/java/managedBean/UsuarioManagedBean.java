@@ -7,14 +7,17 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.AjaxBehaviorEvent;
+import javax.servlet.http.HttpServletResponse;
 import javax.xml.bind.DatatypeConverter;
 
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.chart.BarChartModel;
 import org.primefaces.model.chart.ChartSeries;
@@ -93,6 +96,27 @@ public class UsuarioManagedBean {
 		String imagem = "data:image/png;base64,"+DatatypeConverter.printBase64Binary(image.getFile().getContents());
 		usuario.setImagem(imagem);
 		
+	}
+	
+	public void dowload() throws Exception {
+		Map<String, String> params = FacesContext.getCurrentInstance()
+					.getExternalContext().getRequestParameterMap();
+		
+		String filedowload = params.get("FileDowload");
+		
+		Usuario pessoa = daoUsuario.pesquisar(Long.valueOf(filedowload), Usuario.class);
+		
+		byte[] imagem = new Base64().decodeBase64(pessoa.getImagem().split("\\,")[1]);
+		
+		HttpServletResponse response = (HttpServletResponse)FacesContext.getCurrentInstance().
+				getExternalContext().
+					getResponse();
+		response.addHeader("Content-Disposition", "attachment; filename=dowload.png");
+		response.setContentType("application/octet-stream");
+		response.setContentLength(imagem.length);
+		response.getOutputStream().write(imagem);
+		response.getOutputStream().flush();
+		FacesContext.getCurrentInstance().responseComplete();
 	}
 	
 	public void pesquisar() {

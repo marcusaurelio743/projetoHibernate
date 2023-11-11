@@ -149,7 +149,11 @@
 				<h:outputText value="#{user.nome}"/>
 			</p:column>
 			
-			
+			<p:column headerText="Baixar">
+				<h:commandLink value="baixar" immediate="true" actionListener="#{usuarioManagedBean.dowload}">
+					<f:param name="FileDowload" value="#{user.id}"/>
+				</h:commandLink>
+			</p:column>
 			
 			<p:column width="97">
 				<f:facet name="header">Telefones:</f:facet>
