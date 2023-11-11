@@ -49,7 +49,7 @@
 			
 			
 				<h:outputLabel>Idade</h:outputLabel>
-				<p:inputNumber  value="#{usuarioManagedBean.usuario.idade}" required="true" requiredMessage="Informe Idade:" />
+				<p:inputText  value="#{usuarioManagedBean.usuario.idade}" required="true"   requiredMessage="Informe Idade:" />
 				
 				<h:outputLabel>Salario</h:outputLabel>
 				<p:inputNumber  value="#{usuarioManagedBean.usuario.salario}" required="true" requiredMessage="Informe Salario:" />
@@ -116,6 +116,18 @@
 			<f:ajax execute="@this" render="@form"/>
 		</p:commandButton>
 		</h:form>
+		
+		<br/>
+		
+		<h:form>
+			<p:panel header="Consulta Usúario:">
+				<h:outputLabel value="Nome:"/>
+				<p:inputText value="#{usuarioManagedBean.campoPesquisa}"/>
+				<p:commandButton value="Buscar" actionListener="#{usuarioManagedBean.pesquisar}" update="formtable"/>
+			
+			</p:panel>
+		</h:form>
+		
 		<br/>
 		<br/>
 		<h:form id="formtable">

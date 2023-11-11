@@ -38,10 +38,17 @@ public class UsuarioManagedBean {
 	private BarChartModel barChartModel = new BarChartModel();
 	private Email email = new Email();
 	
+	private String CampoPesquisa;
+	
 	@PostConstruct
 	public void init() {
 		list = daoUsuario.listar(Usuario.class);
 		
+		montaGrafico();
+		
+	}
+
+	private void montaGrafico() {
 		barChartModel = new BarChartModel();
 		
 		ChartSeries userSalario = new ChartSeries();//grupo de usuarios
@@ -54,7 +61,13 @@ public class UsuarioManagedBean {
 		}
 		barChartModel.addSeries(userSalario);//adiciona o grupo no barmodel
 		barChartModel.setTitle("Gráfico de Salário");
-		
+	}
+	
+	public void setCampoPesquisa(String campoPesquisa) {
+		CampoPesquisa = campoPesquisa;
+	}
+	public String getCampoPesquisa() {
+		return CampoPesquisa;
 	}
 	public void setEmail(Email email) {
 		this.email = email;
@@ -72,6 +85,12 @@ public class UsuarioManagedBean {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+	
+	public void pesquisar() {
+		
+		list = daoUsuario.pesquisar(CampoPesquisa);
+		this.montaGrafico();
 	}
 	
 	public String salvar() {
