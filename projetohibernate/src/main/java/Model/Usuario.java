@@ -30,6 +30,9 @@ public class Usuario {
 	private String senha;
 	private Integer idade;
 	private String sexo;
+	
+	@Column(columnDefinition = "text")
+	private String imagem;
 
 	@Column(length = 30)
 	private String cep;
@@ -60,6 +63,12 @@ public class Usuario {
 
 	public void setTelefones(List<Telefone> telefones) {
 		this.telefones = telefones;
+	}
+	public void setImagem(String imagem) {
+		this.imagem = imagem;
+	}
+	public String getImagem() {
+		return imagem;
 	}
 
 	public List<Telefone> getTelefones() {

@@ -105,6 +105,12 @@
 			
 				<h:outputLabel>uf</h:outputLabel>
 				<p:inputText value="#{usuarioManagedBean.usuario.uf}" id="uf" />
+				
+				<h:outputLabel>Foto:</h:outputLabel>
+				<p:fileUpload mode="advanced" label="adicionar" auto="true" fileUploadListener="#{usuarioManagedBean.upload}" update="imagem"/>
+				
+				<h:outputLabel>Imagem</h:outputLabel>
+				<h:graphicImage id="imagem" value="#{usuarioManagedBean.usuario.imagem}" width="220" height="220"/>
 			
 			
 		</h:panelGrid>
