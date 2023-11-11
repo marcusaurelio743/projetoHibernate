@@ -30,6 +30,7 @@ import Dao.DaoEmail;
 import Dao.DaoUsuario;
 import Model.Email;
 import Model.Usuario;
+import datatablelazer.LazyDataTableModelUsuario;
 
 @ManagedBean(name = "usuarioManagedBean")
 @ViewScoped
@@ -37,7 +38,7 @@ public class UsuarioManagedBean {
 	
 	private Usuario usuario = new Usuario();
 	
-	private List<Usuario> list = new ArrayList<Usuario>();
+	private LazyDataTableModelUsuario<Usuario> list = new LazyDataTableModelUsuario<Usuario>();
 	private DaoUsuario<Usuario> daoUsuario = new DaoUsuario();
 	private DaoEmail<Email> daoEmail = new DaoEmail<Email>();
 	private BarChartModel barChartModel = new BarChartModel();
@@ -47,7 +48,7 @@ public class UsuarioManagedBean {
 	
 	@PostConstruct
 	public void init() {
-		list = daoUsuario.listar(Usuario.class);
+		list.load(0, 5, null, null, null);
 		
 		montaGrafico();
 		
@@ -58,7 +59,7 @@ public class UsuarioManagedBean {
 		
 		ChartSeries userSalario = new ChartSeries();//grupo de usuarios
 		
-		for (Usuario usuario : list) {
+		for (Usuario usuario : list.list) {
 			
 			
 				userSalario.set(usuario.getNome(), usuario.getSalario());//vai verificar cada usuario e setar o nome e salario
@@ -121,13 +122,13 @@ public class UsuarioManagedBean {
 	
 	public void pesquisar() {
 		
-		list = daoUsuario.pesquisar(CampoPesquisa);
+		list.pesquisa(CampoPesquisa);
 		this.montaGrafico();
 	}
 	
 	public String salvar() {
 		 daoUsuario.salvar(usuario); 
-		 list.add(usuario);
+		 list.list.add(usuario);
 		 this.novo();
 		 init();
 		 FacesContext.getCurrentInstance().
@@ -204,7 +205,8 @@ public class UsuarioManagedBean {
 		return "";
 		
 	}
-	public List<Usuario> getList() {
+	public LazyDataTableModelUsuario<Usuario> getList() {
+		this.montaGrafico();
 		
 		return list;
 	}
@@ -213,7 +215,7 @@ public class UsuarioManagedBean {
 		
 		try {
 			daoUsuario.removerUsuario(usuario);
-			list.remove(usuario);
+			list.list.remove(usuario);
 			init();
 		} catch (Exception e) {
 			if(e.getCause() instanceof org.hibernate.exception.ConstraintViolationException) {
